@@ -1,52 +1,551 @@
-﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML+RDFa 1.0//EN" "http://www.w3.org/MarkUp/DTD/xhtml-rdfa-1.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" 
-    version="XHTML+RDFa 1.0"
-    xmlns:og="http://ogp.me/ns#"
-    xml:lang="en">
+<!DOCTYPE html>
+<html lang="zh-TW">
 <head>
-<meta http-equiv="X-UA-Compatible" content="IE=edge" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="monitor-signature" content="monitor:player:html5" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black" />
- 
-<meta name="Keywords" content="" />
-<meta name="Description" content="112.11.13-天使樂園會刊-內文-b5(19×26cm)--【15校】" />
-<meta name="Generator" content="Flip PDF 4.4.10.2 at http://www.flipbuilder.com" />
-<link rel="image_src" href="shot.png" />
- <link rel="shortcut icon" href="files/thumb/1.jpg" />
-<link rel="apple-touch-icon" href="files/thumb/1.jpg" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Gender Reveal - 寶寶性別揭曉派對</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@600&family=Noto+Serif+TC:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #f9f8f4;
+            --text-dark: #333333;
+            --boy-blue: #96c4d8;
+            --girl-pink: #e8a2b1;
+            --timeline-green: #6b8e6b;
+            --gold: #8c734b;
+            --yellow: #f0d060;
+        }
 
-<meta property="og:image" content="shot.png" />
-<meta property="og:title" content="112.11.13-天使樂園會刊-內文-b5(19×26cm)--【15校】"/> 
-<meta property="og:description" content="112.11.13-天使樂園會刊-內文-b5(19×26cm)--【15校】" />
-<title>112.11.13-天使樂園會刊-內文-b5(19×26cm)--【15校】</title>
+        * { box-sizing: border-box; }
 
-<link rel="stylesheet" type="text/css" href="mobile/style/style.css" />
-<link rel="stylesheet" type="text/css" href="mobile/style/player.css" />
-<link rel="stylesheet" type="text/css" href="mobile/style/phoneTemplate.css" />
-<link rel="stylesheet" type="text/css" href="mobile/style/template.css" />
-<script type="text/javascript" src="mobile/javascript/jquery-3.5.1.min.js"></script>
+        body {
+            margin: 0; padding: 0;
+            background-color: #eaeaea;
+            font-family: 'Noto Serif TC', serif;
+            color: var(--text-dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
 
-<script type="text/javascript" src="mobile/javascript/config.js"></script>
+        /* ═══════════════════════════════
+           開場畫面
+        ═══════════════════════════════ */
+        #entry-screen {
+            position: fixed;
+            inset: 0;
+            z-index: 200;
+            background: linear-gradient(160deg, #fef9f0 0%, #fdf0f5 50%, #f0f8ff 100%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.9s ease, transform 0.9s ease;
+        }
+        #entry-screen.leaving {
+            opacity: 0;
+            transform: scale(1.06);
+            pointer-events: none;
+        }
 
+        /* 背景裝飾圓 */
+        .entry-bg-circle {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+        }
+        .entry-bg-circle.c1 { width:320px; height:320px; top:-80px; left:-80px; background:radial-gradient(circle, rgba(150,196,216,0.15) 0%, transparent 70%); }
+        .entry-bg-circle.c2 { width:280px; height:280px; bottom:-60px; right:-60px; background:radial-gradient(circle, rgba(232,162,177,0.15) 0%, transparent 70%); }
+        .entry-bg-circle.c3 { width:200px; height:200px; top:40%; left:-40px; background:radial-gradient(circle, rgba(240,208,96,0.12) 0%, transparent 70%); }
 
-<script type="text/javascript">
+        /* 卡片主體 */
+        .entry-card {
+            position: relative;
+            width: min(340px, 88vw);
+            background: rgba(255,255,255,0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-radius: 24px;
+            box-shadow:
+                0 2px 0 rgba(255,255,255,0.9) inset,
+                0 20px 60px rgba(140,115,75,0.12),
+                0 4px 16px rgba(0,0,0,0.06);
+            border: 1px solid rgba(255,255,255,0.9);
+            padding: 36px 28px 32px;
+            text-align: center;
+            animation: cardFloat 5s ease-in-out infinite;
+        }
 
-		
-	var sendvisitinfo = function(type,page){};
-	
-</script>
-</head>	
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0px); }
+            50%       { transform: translateY(-8px); }
+        }
+
+        /* 文字 */
+        .entry-eyebrow {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.1rem;
+            color: var(--gold);
+            letter-spacing: 0.04em;
+            margin: 0 0 4px; /* 已修改：移除原本留給緞帶的 56px 空間 */
+            opacity: 0.9;
+        }
+        .entry-main-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.4rem;
+            line-height: 1.15;
+            color: #5a3d2b;
+            margin: 0 0 4px;
+        }
+        .entry-sub {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.55rem;
+            color: #7a5a8a;
+            margin: 0 0 18px;
+        }
+
+        .entry-divider {
+            width: 60px; height: 1.5px;
+            background: linear-gradient(90deg, var(--boy-blue), var(--girl-pink));
+            margin: 0 auto 16px;
+            border-radius: 2px;
+        }
+
+        .entry-info {
+            font-size: 0.82rem;
+            color: #888;
+            letter-spacing: 0.06em;
+            line-height: 2;
+            margin-bottom: 24px;
+        }
+        .entry-info strong { color: #555; font-weight: 600; }
+
+        /* 點擊按鈕 */
+        .entry-btn {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: linear-gradient(135deg, var(--boy-blue) 0%, var(--girl-pink) 100%);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-family: 'Noto Serif TC', serif;
+            font-size: 0.92rem;
+            cursor: pointer;
+            box-shadow: 0 6px 20px rgba(150,196,216,0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            animation: btnPulse 2.5s ease-in-out infinite;
+            letter-spacing: 0.08em;
+        }
+        .entry-btn:hover  { transform: scale(1.05); box-shadow: 0 10px 28px rgba(150,196,216,0.5); }
+        .entry-btn:active { transform: scale(0.97); }
+
+        @keyframes btnPulse {
+            0%, 100% { box-shadow: 0 6px 20px rgba(150,196,216,0.35); }
+            50%       { box-shadow: 0 6px 28px rgba(232,162,177,0.55); }
+        }
+
+        .entry-btn-hint {
+            margin-top: 12px;
+            font-size: 0.73rem;
+            color: #bbb;
+            letter-spacing: 0.06em;
+        }
+
+        /* 色點裝飾 */
+        .entry-dot {
+            position: absolute;
+            border-radius: 50%;
+            pointer-events: none;
+            animation: dotDrift 6s ease-in-out infinite;
+        }
+        .entry-dot.d1 { width:10px; height:10px; background:var(--boy-blue);   opacity:.35; top:18px;  left:22px;  animation-delay:0s; }
+        .entry-dot.d2 { width:7px;  height:7px;  background:var(--girl-pink);  opacity:.35; top:24px;  right:26px; animation-delay:1s; }
+        .entry-dot.d3 { width:8px;  height:8px;  background:var(--yellow);     opacity:.4;  bottom:80px; left:18px; animation-delay:2s; }
+        .entry-dot.d4 { width:6px;  height:6px;  background:var(--girl-pink);  opacity:.3;  bottom:90px; right:20px; animation-delay:0.5s; }
+
+        @keyframes dotDrift {
+            0%, 100% { transform: translateY(0) scale(1); }
+            50%       { transform: translateY(-5px) scale(1.15); }
+        }
+
+        /* ═══════════════════════════════
+           主卡片
+        ═══════════════════════════════ */
+        .invitation-card {
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: var(--primary-bg);
+            padding: 40px 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            overflow: hidden;
+            opacity: 0;
+            transition: opacity 0.8s ease 0.3s;
+        }
+        .invitation-card.visible { opacity: 1; }
+
+        .divider { width:100px; border:0; height:2px; background-color:var(--text-dark); margin:30px auto; }
+        .info-block { margin-bottom:30px; }
+        .info-block h3 { font-family:'Dancing Script',cursive; font-size:1.8rem; margin:0 0 5px 0; color:var(--gold); }
+        .info-block p { margin:5px 0; font-size:0.95rem; }
+        .small-text { font-size:0.85rem !important; color:#666; }
+        .dress-code-colors { display:flex; justify-content:center; gap:15px; margin-top:10px; }
+        .color-circle { width:30px; height:30px; border-radius:50%; box-shadow:0 2px 5px rgba(0,0,0,0.1); }
+        .circle-blue  { background-color:var(--boy-blue); }
+        .circle-white { background-color:#fff; border:1px solid #ddd; }
+        .circle-pink  { background-color:var(--girl-pink); }
+        img { max-width:100%; height:auto; }
+
+        .form-button {
+            display:inline-block; background-color:var(--timeline-green); color:white; text-decoration:none;
+            padding:10px 24px; border-radius:25px; font-size:0.9rem; margin:14px 0 20px 0;
+            box-shadow:0 4px 6px rgba(0,0,0,0.12); transition:background-color 0.3s, transform 0.15s;
+        }
+        .form-button:hover { background-color:#557555; transform:translateY(-1px); }
+
+        /* 文字卡片 */
+        .notes-redesigned { margin-top:40px; padding:0 4px; text-align:left; }
+        .thank-you-card {
+            background:linear-gradient(135deg,#fff8f9 0%,#f9f5f0 100%);
+            border:1px solid #e8d5c4; border-radius:16px; padding:24px 20px;
+            margin-bottom:18px; text-align:center; position:relative;
+        }
+        .thank-you-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:linear-gradient(90deg,var(--boy-blue),var(--girl-pink)); border-radius:16px 16px 0 0; }
+        .thank-you-icon { font-size:2rem; margin-bottom:6px; }
+        .thank-you-title { font-family:'Dancing Script',cursive; font-size:1.6rem; color:var(--gold); margin:0 0 10px 0; }
+        .thank-you-body { font-size:0.88rem; color:#555; line-height:1.9; margin:0; }
+        .dinner-card {
+            background:#fff; border:1px solid #dde8dd; border-radius:16px;
+            padding:22px 20px; margin-bottom:18px; text-align:center; position:relative;
+        }
+        .dinner-card::before { content:''; position:absolute; top:0; left:0; right:0; height:3px; background:var(--timeline-green); border-radius:16px 16px 0 0; }
+        .dinner-header { display:flex; align-items:center; justify-content:center; gap:8px; margin-bottom:12px; }
+        .dinner-icon { font-size:1.4rem; }
+        .dinner-label { font-family:'Dancing Script',cursive; font-size:1.5rem; color:var(--timeline-green); }
+        .dinner-body, .dinner-note { font-size:0.87rem; color:#555; line-height:1.9; margin:0 0 10px 0; }
+        .dinner-note { background:#f4f8f4; border-radius:10px; padding:10px 14px; font-size:0.83rem; color:#4a6e4a; }
+        .reminder-card {
+            background:linear-gradient(135deg,#f0f7f0 0%,#f9f8f4 100%);
+            border:1px dashed #a8c8a8; border-radius:16px; padding:20px 22px; text-align:left;
+        }
+        .reminder-row { display:flex; align-items:flex-start; gap:10px; font-size:0.87rem; color:#444; margin-bottom:10px; line-height:1.6; }
+        .reminder-dot { flex-shrink:0; width:8px; height:8px; border-radius:50%; background:linear-gradient(135deg,var(--boy-blue),var(--girl-pink)); margin-top:6px; }
+        .closing-line { text-align:center; font-family:'Dancing Script',cursive; font-size:1.3rem; color:var(--gold); margin:14px 0 0 0; }
+
+        /* 相簿 */
+        .photo-section { margin-top:50px; }
+        .photo-section-title { font-family:'Dancing Script',cursive; font-size:1.8rem; color:var(--gold); margin:0 0 16px 0; text-align:center; }
+        .carousel-wrap { position:relative; width:100%; aspect-ratio:4/5; background:#e8e0d5; overflow:hidden; border-radius:4px; box-shadow:0 8px 32px rgba(139,103,69,0.15); cursor:grab; user-select:none; }
+        .carousel-wrap:active { cursor:grabbing; }
+        .carousel-slide { position:absolute; inset:0; opacity:0; transition:opacity 1.2s ease-in-out, transform 1.2s ease-out; transform:scale(1); }
+        .carousel-slide.active { opacity:1; z-index:2; transform:scale(1.02); }
+        .carousel-slide img { position:relative; z-index:1; width:100%; height:100%; object-fit:cover; display:block; pointer-events:none; }
+        .carousel-slide.placeholder-slide { display:flex; flex-direction:column; align-items:center; justify-content:center; background:#f0ede8; font-size:2.2rem; color:#b0a898; gap:8px; }
+        .carousel-slide.placeholder-slide span { font-size:0.82rem; font-family:'Noto Serif TC',serif; }
+        .carousel-controls { display:flex; align-items:center; justify-content:center; gap:24px; margin-top:16px; }
+        .carousel-btn { background:none; border:none; cursor:pointer; font-size:1.4rem; color:var(--gold); opacity:.6; padding:8px 12px; transition:opacity 0.2s, transform 0.15s; line-height:1; }
+        .carousel-btn:hover { opacity:1; transform:scale(1.15); }
+        .carousel-counter { font-size:0.8rem; color:#999; letter-spacing:0.12em; min-width:52px; text-align:center; }
+        .carousel-dots { display:flex; justify-content:center; gap:6px; margin-top:10px; }
+        .carousel-dot { width:6px; height:6px; border-radius:50%; background:#ccc; border:none; cursor:pointer; padding:0; transition:background 0.3s, transform 0.2s; }
+        .carousel-dot.active { background:var(--gold); transform:scale(1.3); }
+
+        /* 音樂按鈕 */
+        @keyframes spin-slow { from { transform:rotate(0deg); } to { transform:rotate(360deg); } }
+        #music-btn {
+            position:fixed; bottom:24px; right:24px; z-index:100;
+            width:48px; height:48px; border-radius:50%; border:none; cursor:pointer;
+            display:flex; align-items:center; justify-content:center;
+            font-size:1.2rem; box-shadow:0 4px 12px rgba(0,0,0,0.18);
+            transition:background-color 0.4s ease;
+            background-color:rgba(255,255,255,0.92); color:#8c734b;
+            backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+        }
+        #music-btn.playing { background-color:#8c734b; color:white; animation:spin-slow 4s linear infinite; }
+
+        /* 花瓣 */
+        .petal { position:fixed; top:-50px; z-index:50; pointer-events:none; opacity:0.8; border-radius:100% 0% 100% 0%; will-change:transform; }
+
+        /* RWD */
+        @media (max-width:480px) {
+            .invitation-card { padding:30px 14px; }
+            .thank-you-card,.dinner-card,.reminder-card { padding:18px 14px; }
+            #music-btn { bottom:16px; right:16px; width:42px; height:42px; font-size:1rem; }
+            .entry-main-title { font-size:2rem; }
+        }
+    </style>
+</head>
 <body>
-	<script type="text/javascript" src="mobile/javascript/search_config.js"></script><script type="text/javascript" src="mobile/javascript/bookmark_config.js"></script>
-<script type="text/javascript" src="mobile/javascript/LoadingJS.js"></script>
 
-<script type="text/javascript" src="mobile/javascript/main.js"></script>
+<div id="entry-screen">
+    <div class="entry-bg-circle c1"></div>
+    <div class="entry-bg-circle c2"></div>
+    <div class="entry-bg-circle c3"></div>
 
+    <div class="entry-card">
+        <div class="entry-dot d1"></div>
+        <div class="entry-dot d2"></div>
+        <div class="entry-dot d3"></div>
+        <div class="entry-dot d4"></div>
 
-<script type="text/javascript"></script>
+        <p class="entry-eyebrow">You're Invited ✨</p>
+        <h1 class="entry-main-title">Baby<br>Gender Reveal</h1>
+        <p class="entry-sub">寶寶性別揭曉派對</p>
+
+        <div class="entry-divider"></div>
+
+        <div class="entry-info">
+            <strong>Kevin & Emily</strong><br>
+            Saturday, June 13, 2026<br>
+            天使分享咖啡廳
+        </div>
+
+        <button class="entry-btn" id="entry-btn">
+            🎀 點此開啟邀請函
+        </button>
+        <p class="entry-btn-hint">Tap to reveal</p>
+    </div>
+</div>
+
+<div class="invitation-card" id="main-card">
+
+    <img src="ribon.webp" alt="緞帶裝飾">
+    <hr class="divider">
+
+    <div class="info-block">
+        <h3>Date</h3>
+        <p><strong>Saturday, June 13, 2026</strong></p>
+        <p class="small-text">14:00 入場 | 14:30 正式開始</p>
+    </div>
+    <div class="info-block">
+        <h3>Address</h3>
+        <p><strong>天使分享咖啡廳</strong></p>
+        <p>仰德大道二段11巷11號 (免費戶外停車場)</p>
+        <p class="small-text">停滿時可至仰德大道二段2巷路邊停車或仰德大道二段100巷路邊</p>
+    </div>
+    <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d451.61909317325!2d121.5416415!3d25.1034609!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3442adf14c141453%3A0x85cb9d464a5d707!2z5aSp5L2_5LuZ5aKD!5e0!3m2!1szh-TW!2stw!4v1777212152461!5m2!1szh-TW!2stw" width="400" height="400" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+    <div class="info-block">
+        <h3>Dress Code</h3>
+        <p class="small-text">( 服裝規定 )</p>
+        <div class="dress-code-colors">
+            <div class="color-circle circle-blue"></div>
+            <div class="color-circle circle-white"></div>
+            <div class="color-circle circle-pink"></div>
+        </div>
+    </div>
+
+    <hr class="divider">
+    <img src="process.webp" alt="活動流程圖">
+
+    <div class="notes-redesigned">
+        <div class="thank-you-card">
+            <div class="thank-you-icon">🌸</div>
+            <p class="thank-you-title">感謝您的祝福</p>
+            <p class="thank-you-body">
+                非常感謝您能前來，期待您的熱情參與和祝福。<br>
+            </p>
+        </div>
+        <div class="dinner-card">
+            <div class="dinner-header">
+                <span class="dinner-icon">🍽️</span>
+                <span class="dinner-label">晚餐加場</span>
+            </div>
+            <p class="dinner-body">
+                本次活動將於 <strong>17:00</strong>溫馨落幕<br>
+                店家後續將照常開始營業<br>
+                若您想留下來一起用餐、繼續聊天敘舊，我們非常歡迎！
+            </p>
+            <p class="dinner-note">
+                為了讓店家可以更順利準備餐點<br>
+                請有意留下用餐的朋友透過下方連結提前登記<br>
+                我們會協助先行告知店家
+            </p>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLSfde64Ro8xVSWEcmhFhN8_pLZmHiKg2FfyigBhLzgP15_zs-A/viewform?usp=header" class="form-button" target="_blank">點此填寫用餐意願登記表</a>
+        </div>
+        <div class="reminder-card">
+            <div class="reminder-row"><span class="reminder-dot"></span><span>本次活動<strong>不收禮金</strong></span></div>
+            <div class="reminder-row"><span class="reminder-dot"></span><span>晚餐費用需請大家<strong>自行負擔</strong></span></div>
+            <div class="reminder-row"><span class="reminder-dot"></span><span>我們會盡力安排，讓整個用餐過程更輕鬆愉快 ✨</span></div>
+            <p class="closing-line">期待和大家一起留下美好的回憶 🌼</p>
+        </div>
+    </div>
+
+    <div class="photo-section">
+        <h3 class="photo-section-title">📸 首度公開</h3>
+        <div class="carousel-wrap" id="carouselWrap">
+            <div class="carousel-slide placeholder-slide active" ><img src="imgs/1.webp" width="400" height="400"></div>
+            <div class="carousel-slide placeholder-slide "><img src="imgs/2.webp" width="400" height="400" loading="lazy"></div>
+            <div class="carousel-slide placeholder-slide"><img src="imgs/3.webp" width="400" height="400" loading="lazy"></div>
+            <div class="carousel-slide placeholder-slide"><img src="imgs/4.webp" width="400" height="400" loading="lazy"></div>
+            <div class="carousel-slide placeholder-slide"><img src="imgs/5.webp" width="400" height="400" loading="lazy"></div>
+            <div class="carousel-slide placeholder-slide"><img src="imgs/6.webp" width="400" height="400" loading="lazy"></div>
+            <div class="carousel-slide placeholder-slide"><img src="imgs/7.webp" width="400" height="400" loading="lazy"></div>
+            <div class="carousel-slide placeholder-slide"><img src="imgs/8.webp" width="400" height="400" loading="lazy"></div>
+            <div class="carousel-slide placeholder-slide"><img src="imgs/9.webp" width="400" height="400" loading="lazy"></div>
+            <div class="carousel-slide placeholder-slide"><img src="imgs/10.webp" width="400" height="400" loading="lazy"></div>
+            <div class="carousel-slide placeholder-slide"><img src="imgs/11.webp" width="400" height="400" loading="lazy"></div>
+            <div class="carousel-slide placeholder-slide"><img src="imgs/12.webp" width="400" height="400" loading="lazy"></div>
+        </div>
+        <div class="carousel-controls">
+            <button class="carousel-btn" id="prevBtn" aria-label="上一張">&#8249;</button>
+            <span class="carousel-counter" id="carouselCounter">1 / 4</span>
+            <button class="carousel-btn" id="nextBtn" aria-label="下一張">&#8250;</button>
+        </div>
+        <div class="carousel-dots" id="carouselDots"></div>
+    </div>
+
+    <img src="footer.webp" alt="頁尾裝飾" style="margin-top:40px;">
+</div>
+
+<button id="music-btn" aria-label="播放背景音樂" title="播放 / 暫停音樂">🎵</button>
+<audio id="bgm" src="bgm.mp3" loop preload="auto"></audio>
+
+<script>
+/* ══ 花瓣雨 ══ */
+(function () {
+    const PETAL_COUNT = 30, petals = [];
+    let scrollVelocity = 0, touchStartY = 0;
+    for (let i = 0; i < PETAL_COUNT; i++) {
+        const el = document.createElement('div');
+        el.classList.add('petal');
+        const size = Math.random() * 8 + 10;
+        el.style.width = size + 'px'; el.style.height = size + 'px';
+        el.style.backgroundColor = Math.random() > 0.5 ? '#EEE04C' : '#f5e87a';
+        el.style.opacity = Math.random() * 0.5 + 0.4;
+        document.body.appendChild(el);
+        petals.push({ el, x:Math.random()*innerWidth, y:Math.random()*innerHeight, speed:Math.random()*1+0.8, rotation:Math.random()*360, rotationSpeed:(Math.random()-0.5)*1.5, wobble:Math.random()*Math.PI*2, wobbleSpeed:Math.random()*0.03+0.015 });
+    }
+    let lastTime = 0;
+    function animate(ts) {
+        if (!lastTime) lastTime = ts;
+        const dt = (ts - lastTime) / 16.67; lastTime = ts;
+        scrollVelocity *= Math.pow(0.92, dt);
+        if (Math.abs(scrollVelocity) < 0.1) scrollVelocity = 0;
+        petals.forEach(p => {
+            p.y += (p.speed - scrollVelocity * 0.3) * dt;
+            p.wobble += p.wobbleSpeed * dt; p.x += Math.sin(p.wobble) * 0.5 * dt; p.rotation += p.rotationSpeed * dt;
+            const h = innerHeight + 50;
+            if (p.y > h) { p.y = -50; p.x = Math.random() * innerWidth; }
+            else if (p.y < -50) { p.y = h; p.x = Math.random() * innerWidth; }
+            if (p.x > innerWidth + 20) p.x = -20; else if (p.x < -20) p.x = innerWidth + 20;
+            p.el.style.transform = 'translate3d(' + p.x + 'px,' + p.y + 'px,0) rotate(' + p.rotation + 'deg)';
+        });
+        requestAnimationFrame(animate);
+    }
+    requestAnimationFrame(animate);
+    window.addEventListener('wheel', e => { scrollVelocity = Math.max(-15, Math.min(15, scrollVelocity + e.deltaY * 0.15)); }, { passive: true });
+    window.addEventListener('touchstart', e => { touchStartY = e.touches[0].clientY; }, { passive: true });
+    window.addEventListener('touchmove', e => { const dy = touchStartY - e.touches[0].clientY; scrollVelocity = Math.max(-15, Math.min(15, scrollVelocity + dy * 0.3)); touchStartY = e.touches[0].clientY; }, { passive: true });
+})();
+
+/* ══ 音樂 ══ */
+const musicState = (function () {
+    const btn = document.getElementById('music-btn');
+    const audio = document.getElementById('bgm');
+    let isPlaying = false;
+
+    function setPlaying(v) {
+        isPlaying = v;
+        v ? btn.classList.add('playing') : btn.classList.remove('playing');
+        btn.setAttribute('aria-label', v ? '暫停背景音樂' : '播放背景音樂');
+    }
+    function fadeIn() {
+        audio.volume = 0.01;
+        let vol = 0.01;
+        const iv = setInterval(() => { vol = Math.min(vol + 0.04, 0.8); audio.volume = vol; if (vol >= 0.8) clearInterval(iv); }, 80);
+    }
+    function play() {
+        audio.volume = 0.01;
+        return audio.play().then(() => { setPlaying(true); fadeIn(); });
+    }
+    btn.addEventListener('click', e => {
+        e.stopPropagation();
+        if (isPlaying) { audio.pause(); setPlaying(false); }
+        else play().catch(() => {});
+    });
+    document.addEventListener('visibilitychange', () => {
+        const mobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+        if (document.hidden) { if (mobile && isPlaying) audio.pause(); }
+        else { if (mobile && isPlaying && audio.paused) audio.play().catch(() => {}); }
+    });
+
+    return { play };
+})();
+
+/* ══ 開場畫面 ══ */
+(function () {
+    const screen  = document.getElementById('entry-screen');
+    const mainCard = document.getElementById('main-card');
+    const btn = document.getElementById('entry-btn');
+
+    function enter() {
+        // 播放音樂（使用者點擊 → 瀏覽器允許）
+        musicState.play().catch(() => {});
+
+        // 開場畫面淡出
+        screen.classList.add('leaving');
+        setTimeout(() => {
+            screen.style.display = 'none';
+            mainCard.classList.add('visible');
+            window.scrollTo({ top: 0, behavior: 'auto' });
+        }, 900);
+    }
+
+    btn.addEventListener('click', enter);
+    btn.addEventListener('touchend', e => { e.preventDefault(); enter(); });
+})();
+
+/* ══ 相簿 Carousel ══ */
+(function () {
+    const slides = Array.from(document.querySelectorAll('.carousel-slide'));
+    const counter = document.getElementById('carouselCounter');
+    const dotsWrap = document.getElementById('carouselDots');
+    const total = slides.length;
+    let current = 0, autoTimer;
+
+    const dots = slides.map((_, i) => {
+        const d = document.createElement('button');
+        d.className = 'carousel-dot' + (i === 0 ? ' active' : '');
+        d.setAttribute('aria-label', '第' + (i + 1) + '張');
+        d.addEventListener('click', () => goTo(i));
+        dotsWrap.appendChild(d);
+        return d;
+    });
+
+    function goTo(idx) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = (idx + total) % total;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+        counter.textContent = (current + 1) + ' / ' + total;
+        resetAuto();
+    }
+    function resetAuto() {
+        clearInterval(autoTimer);
+        autoTimer = setInterval(() => goTo(current + 1), 5000);
+    }
+
+    document.getElementById('prevBtn').addEventListener('click', () => goTo(current - 1));
+    document.getElementById('nextBtn').addEventListener('click', () => goTo(current + 1));
+
+    // 觸控滑動
+    let tX = 0;
+    const wrap = document.getElementById('carouselWrap');
+    wrap.addEventListener('touchstart', e => { tX = e.touches[0].clientX; }, { passive: true });
+    wrap.addEventListener('touchend', e => { const dx = tX - e.changedTouches[0].clientX; if (Math.abs(dx) > 40) goTo(current + (dx > 0 ? 1 : -1)); }, { passive: true });
+
+    // 桌機拖曳
+    let mX = 0, dragging = false;
+    wrap.addEventListener('mousedown', e => { dragging = true; mX = e.clientX; });
+    wrap.addEventListener('mouseup', e => { if (!dragging) return; dragging = false; const dx = mX - e.clientX; if (Math.abs(dx) > 40) goTo(current + (dx > 0 ? 1 : -1)); });
+    wrap.addEventListener('mouseleave', () => { dragging = false; });
+
+    resetAuto();
+})();
+</script>
 
 </body>
 </html>
